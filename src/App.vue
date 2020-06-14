@@ -41,21 +41,18 @@ export default {
     FirstChart,
   },
 
+  mounted() {
+    const stored = JSON.parse(localStorage.getItem("cashEvo"));
+
+    Object.keys(stored).forEach((key) => {
+      this[key] = stored[key];
+    });
+  },
+
   data() {
     const datas = {
       defaultName: "Account",
-      accounts: [
-        {
-          id: 1,
-          name: "CA",
-          amount: 1000,
-        },
-        {
-          id: 2,
-          name: "Liquide",
-          amount: 300,
-        },
-      ],
+      accounts: [],
 
       history: [],
 
@@ -117,6 +114,8 @@ export default {
 
       this.total = total;
 
+      this.saveAllToLocalStorage();
+
       return total;
     },
 
@@ -131,6 +130,10 @@ export default {
         total: this.total,
       });
 
+      this.setChartData();
+    },
+
+    setChartData() {
       this.chartData = {
         labels: this.history.map((h) => h.date),
         datasets: [
@@ -142,6 +145,19 @@ export default {
           },
         ],
       };
+
+      this.saveAllToLocalStorage();
+    },
+
+    saveAllToLocalStorage() {
+      const cashEvo = {
+        accounts: this.accounts,
+        total: this.total,
+        history: this.history,
+        chartData: this.chartData,
+      };
+
+      localStorage.setItem("cashEvo", JSON.stringify(cashEvo));
     },
   },
 };
@@ -203,11 +219,6 @@ h1 {
 .add-to-history {
   margin-bottom: 20px;
 }
-/* @media screen and (min-width: 375px) {
-  .accounts {
-    grid-template-columns: repeat(2, 1fr);
-  }
-} */
 
 @media screen and (min-width: 768px) {
   .add-account {
