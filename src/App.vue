@@ -1,6 +1,11 @@
 <template>
   <div id="app">
-    <h1>CashEvo {{ total }}</h1>
+    <h1>
+      CashEvo
+      <span>
+        {{ total }}
+      </span>
+    </h1>
 
     <button class="add-account" @click="addNew">
       Ajouter un compte
@@ -205,6 +210,10 @@ h1 {
   font-size: 2rem;
   text-align: center;
   margin-bottom: 20px;
+}
+
+h1 span {
+  color: rgb(255, 99, 132);
 }
 
 .add-account {

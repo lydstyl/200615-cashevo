@@ -94,4 +94,7 @@ input {
   text-align: right;
   border: none;
 }
+.amount input {
+  color: rgb(255, 99, 132);
+}
 </style>
