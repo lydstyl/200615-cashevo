@@ -1,11 +1,11 @@
 <template>
   <div>
     <hr />
-    <h2>Account {{ id }} {{ name2 }} {{ amount2 }}</h2>
+    <h2>{{ accountId }} Account {{ name }} {{ amount }}</h2>
 
     <!-- <input type="text" v-bind:name="name2" /> -->
 
-    <button @click="up">Up</button>
+    <button @click="up">emit up</button>
   </div>
 </template>
 
@@ -17,23 +17,21 @@ export default {
 
   data() {
     return {
-      id: this.accountId,
-      name2: this.name,
-      amount2: this.amount,
+      // name2: this.name,
     };
   },
   methods: {
     up() {
-      this.amount2++;
+      this.$emit("up", {
+        accountId: this.accountId,
+        name: this.name,
+        amount: this.amount,
+        add: 100,
+      });
     },
   },
   computed: {
     // counter() {
-    //   let countLen = this.count.toString().length;
-    //   let countDiff = this.format - countLen;
-    //   let zeros = "";
-    //   for (let i = 0; i < countDiff; i++) zeros += "0";
-    //   return zeros + this.count;
     // },
   },
 };

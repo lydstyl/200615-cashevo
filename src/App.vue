@@ -7,9 +7,11 @@
     </button>
 
     <Account
+      v-on:up="up"
       v-for="account in accounts"
       v-bind:key="account.id"
-      v-bind:name="account.name"
+      :accountId="account.id"
+      :name="account.name"
       :amount="account.amount"
     ></Account>
   </div>
@@ -23,6 +25,7 @@ export default {
   components: {
     Account,
   },
+
   data() {
     const datas = {
       h1Text: "Le point sur ton cash",
@@ -50,6 +53,18 @@ export default {
   },
 
   methods: {
+    up(evt) {
+      this.accounts = this.accounts.map((a) => {
+        if (a.id === evt.accountId) {
+          return { ...a, amount: a.amount + evt.add };
+        } else {
+          return a;
+        }
+      });
+
+      this.total = this.setTotal();
+    },
+
     addNew() {
       this.accounts.push({
         id: this.accounts.length + 1,
