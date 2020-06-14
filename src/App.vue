@@ -3,13 +3,14 @@
     <h1>CashEvo {{ total }}</h1>
 
     <button class="add-account" @click="addNew">
-      Add new account
+      Ajouter un compte
     </button>
 
     <div class="accounts">
       <Account
         v-for="account in accounts"
         v-on:setAccount="setAccount"
+        v-on:removeAccount="removeAccount"
         v-bind:key="account.id"
         :accountId="account.id"
         :name="account.name"
@@ -18,7 +19,7 @@
     </div>
 
     <button class="add-to-history" @click="addToHistory">
-      Add to history
+      Ajouter à l'historique
     </button>
 
     <!-- <pre
@@ -92,6 +93,12 @@ export default {
       this.total = this.setTotal();
     },
 
+    removeAccount(evt) {
+      this.accounts = this.accounts.filter((a) => a.id !== evt.accountId);
+
+      this.total = this.setTotal();
+    },
+
     addNew() {
       this.accounts.push({
         id: this.accounts.length + 1,
@@ -159,6 +166,10 @@ button {
   font-size: 1rem;
 }
 
+button:hover {
+  cursor: pointer;
+}
+
 #app {
   max-width: 1200px;
   margin: auto;
@@ -185,6 +196,9 @@ h1 {
   margin-bottom: 50px;
 }
 
+.add-to-history {
+  margin-bottom: 20px;
+}
 /* @media screen and (min-width: 375px) {
   .accounts {
     grid-template-columns: repeat(2, 1fr);

@@ -1,5 +1,6 @@
 <template>
   <div class="account">
+    <span v-on:click="removeAccount">X</span>
     <h2>
       <input
         class="account-name"
@@ -41,7 +42,14 @@ export default {
         newAmount: parseFloat(this.newAmount),
       });
     },
+
+    removeAccount() {
+      this.$emit("removeAccount", {
+        accountId: this.accountId,
+      });
+    },
   },
+
   computed: {
     // counter() {
     // },
@@ -51,8 +59,21 @@ export default {
 
 <style scoped>
 .account {
+  position: relative;
   padding: 20px;
   border: 1px dotted;
+}
+
+.account span {
+  position: absolute;
+  top: -12px;
+  right: 0;
+
+  font-size: 2rem;
+}
+
+.account span:hover {
+  cursor: pointer;
 }
 
 h2 {
