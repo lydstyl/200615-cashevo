@@ -1,10 +1,17 @@
 <template>
   <div class="account">
-    <h2>{{ name }}</h2>
+    <h2>
+      <input
+        class="account-name"
+        v-model="newName"
+        type="text"
+        placeholder="nom"
+      />
+    </h2>
 
     <div class="amount">
       <input v-model="newAmount" type="number" placeholder="nouveau montant" />
-      <button @click="up">Sauver</button>
+      <button @click="setAccount">Sauver</button>
     </div>
   </div>
 </template>
@@ -21,14 +28,16 @@ export default {
 
   data() {
     return {
+      newName: this.name,
       newAmount: this.amount,
     };
   },
 
   methods: {
-    up() {
-      this.$emit("up", {
+    setAccount() {
+      this.$emit("setAccount", {
         accountId: this.accountId,
+        newName: this.newName,
         newAmount: parseFloat(this.newAmount),
       });
     },
@@ -50,6 +59,11 @@ h2 {
   font-size: 1.7rem;
   text-align: center;
   margin-bottom: 20px;
+}
+
+.account-name {
+  width: 100%;
+  text-align: center;
 }
 
 .amount {

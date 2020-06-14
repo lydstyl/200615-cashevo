@@ -8,7 +8,7 @@
 
     <div class="accounts">
       <Account
-        v-on:up="up"
+        v-on:setAccount="setAccount"
         v-for="account in accounts"
         v-bind:key="account.id"
         :accountId="account.id"
@@ -58,10 +58,10 @@ export default {
   },
 
   methods: {
-    up(evt) {
+    setAccount(evt) {
       this.accounts = this.accounts.map((a) => {
         if (a.id === evt.accountId) {
-          return { ...a, amount: evt.newAmount };
+          return { ...a, name: evt.newName, amount: evt.newAmount };
         } else {
           return a;
         }
