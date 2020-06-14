@@ -1,25 +1,55 @@
 <template>
   <div id="app">
-    <!-- <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-    <Coucou firstName="Gabriel" /> -->
+    <h1>{{ h1Text }}</h1>
 
-    <Account name="liquide" amount="300" />
-    <Account name="CA" amount="1000" />
+    <button type="button" id="addCounter" @click="addNew">
+      Add new account
+    </button>
+
+    <Account
+      v-for="account in accounts"
+      v-bind:key="account.id"
+      v-bind:name="account.name"
+      :amount="account.amount"
+    ></Account>
   </div>
 </template>
 
 <script>
-// import HelloWorld from "./components/HelloWorld.vue";
-// import Coucou from "./components/Coucou.vue";
 import Account from "./components/Account.vue";
 
 export default {
   name: "App",
   components: {
-    // HelloWorld,
-    // Coucou,
     Account,
+  },
+  data() {
+    return {
+      h1Text: "Le point sur ton cash",
+      defaultName: "Account",
+      accounts: [
+        {
+          id: 1,
+          name: "CA",
+          amount: 1000,
+        },
+        {
+          id: 2,
+          name: "Liquide",
+          amount: 300,
+        },
+      ],
+    };
+  },
+
+  methods: {
+    addNew() {
+      this.accounts.push({
+        id: this.accounts.length + 1,
+        name: `${this.defaultName} (${this.accounts.length + 1})`,
+        amount: 777,
+      });
+    },
   },
 };
 </script>

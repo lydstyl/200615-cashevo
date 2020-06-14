@@ -1,28 +1,44 @@
 <template>
   <div>
     <hr />
-    <h2>{{ name }}</h2>
+    <h2>Account {{ id }} {{ name2 }} {{ amount2 }}</h2>
 
-    <input v-model.number="amount" />
-    <p>Le amount est : {{ amount }}</p>
+    <button @click="up">Up</button>
   </div>
 </template>
 
 <script>
 export default {
   name: "Account",
-  props: {
-    name: String,
-    // amount: String,
+
+  props: ["accountId", "name", "amount"],
+
+  data() {
+    return {
+      id: this.accountId,
+      name2: this.name,
+      amount2: this.amount,
+    };
   },
-  data: () => {
-    return { amount: 2000 };
+  methods: {
+    up() {
+      this.amount2++;
+    },
+  },
+  computed: {
+    // counter() {
+    //   let countLen = this.count.toString().length;
+    //   let countDiff = this.format - countLen;
+    //   let zeros = "";
+    //   for (let i = 0; i < countDiff; i++) zeros += "0";
+    //   return zeros + this.count;
+    // },
   },
 };
 </script>
 
 <style scoped>
-p {
+/* span {
   color: red;
-}
+} */
 </style>
