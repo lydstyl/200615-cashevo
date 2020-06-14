@@ -6,10 +6,6 @@
       Add new account
     </button>
 
-    <button type="button" @click="addNew">
-      Total
-    </button>
-
     <Account
       v-for="account in accounts"
       v-bind:key="account.id"
@@ -60,6 +56,19 @@ export default {
         name: `${this.defaultName} (${this.accounts.length + 1})`,
         amount: 777,
       });
+
+      this.total = this.setTotal();
+    },
+
+    setTotal() {
+      const total = this.accounts.reduce(
+        (total, account) => total + account.amount,
+        0
+      );
+
+      this.total = total;
+
+      return total;
     },
   },
 };
