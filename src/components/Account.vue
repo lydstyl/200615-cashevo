@@ -49,11 +49,6 @@ export default {
       });
     },
   },
-
-  computed: {
-    // counter() {
-    // },
-  },
 };
 </script>
 

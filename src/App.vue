@@ -103,7 +103,7 @@ export default {
         amount: 0,
       });
 
-      this.total = this.setTotal();
+      this.setTotal();
     },
 
     setTotal() {
@@ -159,6 +159,11 @@ export default {
 
       localStorage.setItem("cashEvo", JSON.stringify(cashEvo));
     },
+  },
+
+  computed: {
+    // counter() {
+    // },
   },
 };
 </script>
