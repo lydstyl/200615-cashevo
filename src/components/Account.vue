@@ -5,7 +5,7 @@
 
     <input v-model="newAmount" type="number" placeholder="nouveau montant" />
     <p>Le newAmount est : {{ newAmount }}</p>
-    <button @click="up">emit up</button>
+    <button @click="up">Sauver</button>
   </div>
 </template>
 
@@ -13,11 +13,10 @@
 export default {
   name: "Account",
 
-  // props: ["accountId", "name", "amount"],
   props: {
-    accountId: {},
-    name: {},
-    amount: {},
+    accountId: Number,
+    name: String,
+    amount: Number,
   },
 
   data() {
