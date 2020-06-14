@@ -95,13 +95,37 @@ export default {
 </script>
 
 <style>
+* {
+  box-sizing: border-box;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+  border-radius: 4px;
+}
+
+body {
+  font-size: 62.5%;
+}
+
+input,
+button {
+  padding: 10px;
+  font-size: 1.5rem;
+}
+
+button {
+  font-size: 1rem;
+}
+
 #app {
   max-width: 1200px;
   margin: auto;
 }
 
 h1 {
+  font-size: 2rem;
   text-align: center;
+  margin-bottom: 20px;
 }
 
 .add-account {
@@ -109,25 +133,28 @@ h1 {
   margin: 0 auto 50px auto;
 }
 
-@media screen and (min-width: 768px) {
-  .add-account {
-    margin-bottom: 100px;
-  }
-}
-
 .accounts {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(1, 1fr);
   grid-gap: 20px;
   grid-auto-rows: minmax(100px, auto);
 
   margin-bottom: 50px;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 375px) {
   .accounts {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .add-account {
+    margin-bottom: 100px;
+  }
+
+  .accounts {
+    grid-template-columns: repeat(2, 1fr);
     grid-gap: 40px;
 
     margin-bottom: 100px;
@@ -136,9 +163,7 @@ h1 {
 
 @media screen and (min-width: 1200px) {
   .accounts {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    grid-gap: 40px;
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 </style>

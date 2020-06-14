@@ -26,6 +26,7 @@ export default {
 
 <style scoped>
 canvas {
+  display: block;
   max-width: 1200px;
   max-height: 600px;
   margin: auto;

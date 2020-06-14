@@ -4,7 +4,6 @@
 
     <div class="amount">
       <input v-model="newAmount" type="number" placeholder="nouveau montant" />
-      <!-- <p>Le newAmount est : {{ newAmount }}</p> -->
       <button @click="up">Sauver</button>
     </div>
   </div>
@@ -43,11 +42,14 @@ export default {
 
 <style scoped>
 .account {
+  padding: 20px;
   border: 1px dotted;
 }
 
 h2 {
+  font-size: 1.7rem;
   text-align: center;
+  margin-bottom: 20px;
 }
 
 .amount {
@@ -56,6 +58,10 @@ h2 {
 }
 
 input {
-  max-width: 52px;
+  width: 120px;
+  margin-right: 20px;
+  padding: 2px;
+  text-align: right;
+  border: none;
 }
 </style>
