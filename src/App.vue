@@ -56,7 +56,7 @@ export default {
     up(evt) {
       this.accounts = this.accounts.map((a) => {
         if (a.id === evt.accountId) {
-          return { ...a, amount: a.amount + evt.add };
+          return { ...a, amount: evt.newAmount };
         } else {
           return a;
         }

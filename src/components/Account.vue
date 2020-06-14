@@ -1,10 +1,10 @@
 <template>
   <div>
     <hr />
-    <h2>{{ accountId }} Account {{ name }} {{ amount }}</h2>
+    <h2>id {{ accountId }} Account {{ name }}</h2>
 
-    <!-- <input type="text" v-bind:name="name2" /> -->
-
+    <input v-model="newAmount" type="number" placeholder="nouveau montant" />
+    <p>Le newAmount est : {{ newAmount }}</p>
     <button @click="up">emit up</button>
   </div>
 </template>
@@ -13,20 +13,24 @@
 export default {
   name: "Account",
 
-  props: ["accountId", "name", "amount"],
+  // props: ["accountId", "name", "amount"],
+  props: {
+    accountId: {},
+    name: {},
+    amount: {},
+  },
 
   data() {
     return {
-      // name2: this.name,
+      newAmount: this.amount,
     };
   },
+
   methods: {
     up() {
       this.$emit("up", {
         accountId: this.accountId,
-        name: this.name,
-        amount: this.amount,
-        add: 100,
+        newAmount: parseFloat(this.newAmount),
       });
     },
   },
