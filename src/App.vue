@@ -1,9 +1,13 @@
 <template>
   <div id="app">
-    <h1>{{ h1Text }}</h1>
+    <h1>{{ h1Text }} {{ total }}</h1>
 
     <button type="button" id="addCounter" @click="addNew">
       Add new account
+    </button>
+
+    <button type="button" @click="addNew">
+      Total
     </button>
 
     <Account
@@ -24,7 +28,7 @@ export default {
     Account,
   },
   data() {
-    return {
+    const datas = {
       h1Text: "Le point sur ton cash",
       defaultName: "Account",
       accounts: [
@@ -40,6 +44,13 @@ export default {
         },
       ],
     };
+
+    datas.total = datas.accounts.reduce(
+      (total, account) => total + account.amount,
+      0
+    );
+
+    return datas;
   },
 
   methods: {

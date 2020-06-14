@@ -3,6 +3,8 @@
     <hr />
     <h2>Account {{ id }} {{ name2 }} {{ amount2 }}</h2>
 
+    <!-- <input type="text" v-bind:name="name2" /> -->
+
     <button @click="up">Up</button>
   </div>
 </template>
