@@ -1,11 +1,12 @@
 <template>
-  <div>
-    <hr />
-    <h2>id {{ accountId }} Account {{ name }}</h2>
+  <div class="account">
+    <h2>{{ name }}</h2>
 
-    <input v-model="newAmount" type="number" placeholder="nouveau montant" />
-    <p>Le newAmount est : {{ newAmount }}</p>
-    <button @click="up">Sauver</button>
+    <div class="amount">
+      <input v-model="newAmount" type="number" placeholder="nouveau montant" />
+      <!-- <p>Le newAmount est : {{ newAmount }}</p> -->
+      <button @click="up">Sauver</button>
+    </div>
   </div>
 </template>
 
@@ -41,7 +42,20 @@ export default {
 </script>
 
 <style scoped>
-/* span {
-  color: red;
-} */
+.account {
+  border: 1px dotted;
+}
+
+h2 {
+  text-align: center;
+}
+
+.amount {
+  display: flex;
+  justify-content: space-between;
+}
+
+input {
+  max-width: 52px;
+}
 </style>

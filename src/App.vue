@@ -1,34 +1,39 @@
 <template>
   <div id="app">
-    <h1>{{ h1Text }} {{ total }}</h1>
+    <h1>CashEvo {{ total }}</h1>
 
-    <button type="button" id="addCounter" @click="addNew">
+    <button class="add-account" type="button" id="addCounter" @click="addNew">
       Add new account
     </button>
 
-    <Account
-      v-on:up="up"
-      v-for="account in accounts"
-      v-bind:key="account.id"
-      :accountId="account.id"
-      :name="account.name"
-      :amount="account.amount"
-    ></Account>
+    <div class="accounts">
+      <Account
+        v-on:up="up"
+        v-for="account in accounts"
+        v-bind:key="account.id"
+        :accountId="account.id"
+        :name="account.name"
+        :amount="account.amount"
+      ></Account>
+    </div>
+
+    <FirstChart></FirstChart>
   </div>
 </template>
 
 <script>
 import Account from "./components/Account.vue";
+import FirstChart from "./components/FirstChart.vue";
 
 export default {
   name: "App",
   components: {
     Account,
+    FirstChart,
   },
 
   data() {
     const datas = {
-      h1Text: "Le point sur ton cash",
       defaultName: "Account",
       accounts: [
         {
@@ -69,7 +74,7 @@ export default {
       this.accounts.push({
         id: this.accounts.length + 1,
         name: `${this.defaultName} (${this.accounts.length + 1})`,
-        amount: 777,
+        amount: 0,
       });
 
       this.total = this.setTotal();
@@ -91,11 +96,49 @@ export default {
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  max-width: 1200px;
+  margin: auto;
+}
+
+h1 {
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+}
+
+.add-account {
+  display: block;
+  margin: 0 auto 50px auto;
+}
+
+@media screen and (min-width: 768px) {
+  .add-account {
+    margin-bottom: 100px;
+  }
+}
+
+.accounts {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 20px;
+  grid-auto-rows: minmax(100px, auto);
+
+  margin-bottom: 50px;
+}
+
+@media screen and (min-width: 768px) {
+  .accounts {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 40px;
+
+    margin-bottom: 100px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .accounts {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-gap: 40px;
+  }
 }
 </style>
