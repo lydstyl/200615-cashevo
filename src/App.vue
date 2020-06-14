@@ -101,7 +101,7 @@ export default {
 
     addNew() {
       this.accounts.push({
-        id: this.accounts.length + 1,
+        id: this.accounts.length + 1 + Math.random() * 1000000000000000000,
         name: `${this.defaultName} (${this.accounts.length + 1})`,
         amount: 0,
       });
@@ -122,8 +122,12 @@ export default {
 
     addToHistory() {
       this.history.push({
-        id: this.history.length + 1,
-        date: `${this.history.length + 1}`,
+        id: this.history.length + 1 + Math.random() * 1000000000000000000,
+        date: `${new Date().toLocaleString("fr-FR", {
+          day: "numeric",
+          month: "numeric",
+          year: "numeric",
+        })}`,
         total: this.total,
       });
 
