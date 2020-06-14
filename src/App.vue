@@ -2,22 +2,30 @@
   <div id="app">
     <h1>CashEvo {{ total }}</h1>
 
-    <button class="add-account" type="button" id="addCounter" @click="addNew">
+    <button class="add-account" @click="addNew">
       Add new account
     </button>
 
     <div class="accounts">
       <Account
-        v-on:setAccount="setAccount"
         v-for="account in accounts"
+        v-on:setAccount="setAccount"
         v-bind:key="account.id"
         :accountId="account.id"
         :name="account.name"
         :amount="account.amount"
-      ></Account>
+      />
     </div>
 
-    <FirstChart></FirstChart>
+    <button class="add-to-history" @click="addToHistory">
+      Add to history
+    </button>
+
+    <!-- <pre
+      >{{ JSON.stringify(history, null, 4) }}
+    </pre> -->
+
+    <FirstChart v-bind:chartData="chartData" v-bind:options="{}" />
   </div>
 </template>
 
@@ -47,6 +55,20 @@ export default {
           amount: 300,
         },
       ],
+
+      history: [],
+
+      chartData: {
+        labels: [],
+        datasets: [
+          {
+            label: "Historique",
+            backgroundColor: "rgba(0, 0, 0, 0)",
+            borderColor: "rgb(255, 99, 132)",
+            data: [],
+          },
+        ],
+      },
     };
 
     datas.total = datas.accounts.reduce(
@@ -90,6 +112,26 @@ export default {
 
       return total;
     },
+
+    addToHistory() {
+      this.history.push({
+        id: this.history.length + 1,
+        date: `${this.history.length + 1}`,
+        total: this.total,
+      });
+
+      this.chartData = {
+        labels: this.history.map((h) => h.date),
+        datasets: [
+          {
+            label: "Historique",
+            backgroundColor: "rgba(0, 0, 0, 0)",
+            borderColor: "rgb(255, 99, 132)",
+            data: this.history.map((h) => h.total),
+          },
+        ],
+      };
+    },
   },
 };
 </script>
@@ -120,6 +162,7 @@ button {
 #app {
   max-width: 1200px;
   margin: auto;
+  padding: 20px;
 }
 
 h1 {
@@ -142,11 +185,11 @@ h1 {
   margin-bottom: 50px;
 }
 
-@media screen and (min-width: 375px) {
+/* @media screen and (min-width: 375px) {
   .accounts {
     grid-template-columns: repeat(2, 1fr);
   }
-}
+} */
 
 @media screen and (min-width: 768px) {
   .add-account {
