@@ -36,27 +36,27 @@
 </template>
 
 <script>
-import Account from "./components/Account.vue";
-import FirstChart from "./components/FirstChart.vue";
+import Account from './components/Account.vue'
+import FirstChart from './components/FirstChart.vue'
 
 export default {
-  name: "App",
+  name: 'App',
   components: {
     Account,
     FirstChart,
   },
 
   mounted() {
-    const stored = JSON.parse(localStorage.getItem("cashEvo"));
+    const stored = JSON.parse(localStorage.getItem('cashEvo'))
 
     Object.keys(stored).forEach((key) => {
-      this[key] = stored[key];
-    });
+      this[key] = stored[key]
+    })
   },
 
   data() {
     const datas = {
-      defaultName: "Account",
+      defaultName: 'Account',
       accounts: [],
 
       history: [],
@@ -65,40 +65,48 @@ export default {
         labels: [],
         datasets: [
           {
-            label: "Historique",
-            backgroundColor: "rgba(0, 0, 0, 0)",
-            borderColor: "rgb(255, 99, 132)",
+            label: 'Historique',
+            backgroundColor: 'rgba(0, 0, 0, 0)',
+            borderColor: 'rgb(255, 99, 132)',
             data: [],
           },
         ],
       },
-    };
+    }
 
     datas.total = datas.accounts.reduce(
       (total, account) => total + account.amount,
       0
-    );
+    )
 
-    return datas;
+    return datas
   },
 
   methods: {
     setAccount(evt) {
-      this.accounts = this.accounts.map((a) => {
-        if (a.id === evt.accountId) {
-          return { ...a, name: evt.newName, amount: evt.newAmount };
-        } else {
-          return a;
-        }
-      });
+      this.accounts = this.accounts
+        .map((a) => {
+          if (a.id === evt.accountId) {
+            return { ...a, name: evt.newName, amount: evt.newAmount }
+          } else {
+            return a
+          }
+        })
+        .sort((a, b) => {
+          if (a.amount < b.amount) {
+            return 1
+          } else {
+            return -1
+          }
+        })
 
-      this.total = this.setTotal();
+      this.total = this.setTotal()
     },
 
     removeAccount(evt) {
-      this.accounts = this.accounts.filter((a) => a.id !== evt.accountId);
+      this.accounts = this.accounts.filter((a) => a.id !== evt.accountId)
 
-      this.total = this.setTotal();
+      this.total = this.setTotal()
     },
 
     addNew() {
@@ -106,36 +114,36 @@ export default {
         id: this.accounts.length + 1 + Math.random() * 1000000000000000000,
         name: `${this.defaultName} (${this.accounts.length + 1})`,
         amount: 0,
-      });
+      })
 
-      this.setTotal();
+      this.setTotal()
     },
 
     setTotal() {
       const total = this.accounts.reduce(
         (total, account) => total + account.amount,
         0
-      );
+      )
 
-      this.total = total;
+      this.total = total
 
-      this.saveAllToLocalStorage();
+      this.saveAllToLocalStorage()
 
-      return total;
+      return total
     },
 
     addToHistory() {
       this.history.push({
         id: this.history.length + 1 + Math.random() * 1000000000000000000,
-        date: `${new Date().toLocaleString("fr-FR", {
-          day: "numeric",
-          month: "numeric",
-          year: "numeric",
+        date: `${new Date().toLocaleString('fr-FR', {
+          day: 'numeric',
+          month: 'numeric',
+          year: 'numeric',
         })}`,
         total: this.total,
-      });
+      })
 
-      this.setChartData();
+      this.setChartData()
     },
 
     setChartData() {
@@ -143,15 +151,15 @@ export default {
         labels: this.history.map((h) => h.date),
         datasets: [
           {
-            label: "Historique",
-            backgroundColor: "rgba(0, 0, 0, 0)",
-            borderColor: "rgb(255, 99, 132)",
+            label: 'Historique',
+            backgroundColor: 'rgba(0, 0, 0, 0)',
+            borderColor: 'rgb(255, 99, 132)',
             data: this.history.map((h) => h.total),
           },
         ],
-      };
+      }
 
-      this.saveAllToLocalStorage();
+      this.saveAllToLocalStorage()
     },
 
     saveAllToLocalStorage() {
@@ -160,9 +168,9 @@ export default {
         total: this.total,
         history: this.history,
         chartData: this.chartData,
-      };
+      }
 
-      localStorage.setItem("cashEvo", JSON.stringify(cashEvo));
+      localStorage.setItem('cashEvo', JSON.stringify(cashEvo))
     },
   },
 
@@ -170,7 +178,7 @@ export default {
     // counter() {
     // },
   },
-};
+}
 </script>
 
 <style>
