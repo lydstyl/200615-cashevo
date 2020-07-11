@@ -50,6 +50,11 @@ export default {
     Object.keys(stored).forEach(key => {
       this[key] = stored[key];
     });
+
+    this.setDoughnutData(
+      this.accounts.map(a => a.name),
+      this.accounts.map(a => a.amount)
+    );
   },
 
   data() {
@@ -72,13 +77,12 @@ export default {
       },
 
       doughnutData: {
-        labels: ["red", "blue"],
+        labels: [],
         datasets: [
           {
-            label: "Historique",
             backgroundColor: "rgba(0, 0, 0, 0)",
             borderColor: "rgb(255, 99, 132)",
-            data: [100, 200]
+            data: []
           }
         ]
       }
@@ -170,6 +174,19 @@ export default {
       };
 
       this.saveAllToLocalStorage();
+    },
+
+    setDoughnutData(labels, data) {
+      this.doughnutData = {
+        labels,
+        datasets: [
+          {
+            backgroundColor: "rgba(0, 0, 0, 0)",
+            borderColor: "rgb(255, 99, 132)",
+            data
+          }
+        ]
+      };
     },
 
     saveAllToLocalStorage() {
