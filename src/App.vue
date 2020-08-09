@@ -36,24 +36,34 @@ import Account from "./components/Account.vue";
 import FirstChart from "./components/FirstChart.vue";
 import Doughnut from "./components/Doughnut.vue";
 
+const showCashEvoInConsole = () => {
+  let cashEvo = localStorage.getItem("cashEvo");
+  cashEvo = JSON.parse(cashEvo);
+  cashEvo = JSON.stringify(cashEvo, null, 4);
+
+  console.log("showCashEvoInConsole -> cashEvo", cashEvo);
+};
+
+showCashEvoInConsole();
+
 export default {
   name: "App",
   components: {
     Account,
     Doughnut,
-    FirstChart
+    FirstChart,
   },
 
   mounted() {
     const stored = JSON.parse(localStorage.getItem("cashEvo"));
 
-    Object.keys(stored).forEach(key => {
+    Object.keys(stored).forEach((key) => {
       this[key] = stored[key];
     });
 
     this.setDoughnutData(
-      this.accounts.map(a => a.name),
-      this.accounts.map(a => a.amount)
+      this.accounts.map((a) => a.name),
+      this.accounts.map((a) => a.amount)
     );
   },
 
@@ -71,9 +81,9 @@ export default {
             label: "Historique",
             backgroundColor: "rgba(0, 0, 0, 0)",
             borderColor: "rgb(255, 99, 132)",
-            data: []
-          }
-        ]
+            data: [],
+          },
+        ],
       },
 
       doughnutData: {
@@ -82,10 +92,10 @@ export default {
           {
             backgroundColor: "rgba(0, 0, 0, 0)",
             borderColor: "rgb(255, 99, 132)",
-            data: []
-          }
-        ]
-      }
+            data: [],
+          },
+        ],
+      },
     };
 
     datas.total = datas.accounts.reduce(
@@ -99,7 +109,7 @@ export default {
   methods: {
     setAccount(evt) {
       this.accounts = this.accounts
-        .map(a => {
+        .map((a) => {
           if (a.id === evt.accountId) {
             return { ...a, name: evt.newName, amount: evt.newAmount };
           } else {
@@ -118,7 +128,7 @@ export default {
     },
 
     removeAccount(evt) {
-      this.accounts = this.accounts.filter(a => a.id !== evt.accountId);
+      this.accounts = this.accounts.filter((a) => a.id !== evt.accountId);
 
       this.total = this.setTotal();
     },
@@ -127,7 +137,7 @@ export default {
       this.accounts.push({
         id: this.accounts.length + 1 + Math.random() * 1000000000000000000,
         name: `${this.defaultName} (${this.accounts.length + 1})`,
-        amount: 0
+        amount: 0,
       });
 
       this.setTotal();
@@ -152,9 +162,9 @@ export default {
         date: `${new Date().toLocaleString("fr-FR", {
           day: "numeric",
           month: "numeric",
-          year: "numeric"
+          year: "numeric",
         })}`,
-        total: this.total
+        total: this.total,
       });
 
       this.setChartData();
@@ -162,15 +172,15 @@ export default {
 
     setChartData() {
       this.chartData = {
-        labels: this.history.map(h => h.date),
+        labels: this.history.map((h) => h.date),
         datasets: [
           {
             label: "Historique",
             backgroundColor: "rgba(0, 0, 0, 0)",
             borderColor: "rgb(255, 99, 132)",
-            data: this.history.map(h => h.total)
-          }
-        ]
+            data: this.history.map((h) => h.total),
+          },
+        ],
       };
 
       this.saveAllToLocalStorage();
@@ -183,9 +193,9 @@ export default {
           {
             backgroundColor: "rgba(0, 0, 0, 0)",
             borderColor: "rgb(255, 99, 132)",
-            data
-          }
-        ]
+            data,
+          },
+        ],
       };
     },
 
@@ -194,17 +204,17 @@ export default {
         accounts: this.accounts,
         total: this.total,
         history: this.history,
-        chartData: this.chartData
+        chartData: this.chartData,
       };
 
       localStorage.setItem("cashEvo", JSON.stringify(cashEvo));
-    }
+    },
   },
 
   computed: {
     // counter() {
     // },
-  }
+  },
 };
 </script>
 
